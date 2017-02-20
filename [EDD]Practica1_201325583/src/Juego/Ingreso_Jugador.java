@@ -120,6 +120,7 @@ public class Ingreso_Jugador extends javax.swing.JFrame {
         this.setVisible(false);
         if(p != null){
             p.setVisible(true);
+            p.setJugador(jugador);
         }
     }//GEN-LAST:event_formWindowClosed
 
@@ -128,18 +129,21 @@ public class Ingreso_Jugador extends javax.swing.JFrame {
         //verificar si existe
         boolean existe = false;
         if(jugador != null){
-            String comparar = txtUsuario.getText().trim();
-            for(int i = 0; i < jugador.getSize(); i++){
-                if(jugador.get(i).toString().equals(comparar)){
-                    existe = true;
+            if(!txtUsuario.getText().equals("")){
+                String comparar = txtUsuario.getText().trim();
+                for(int i = 0; i < jugador.getSize(); i++){
+                    if(jugador.get(i).toString().equals(comparar)){
+                        existe = true;
+                    }
                 }
-            }
-            
-            if(!existe){
-                jugador.add(comparar);
-                JOptionPane.showMessageDialog(null, "Jugador Agregado", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-            }else{
-                JOptionPane.showMessageDialog(null, "Usuario existente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+
+                if(!existe){
+                    jugador.add(comparar);
+                    JOptionPane.showMessageDialog(null, "Jugador Agregado", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Usuario existente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                }
+                txtUsuario.setText("");
             }
         }
         

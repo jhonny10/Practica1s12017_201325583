@@ -20,7 +20,8 @@ public class Principal extends javax.swing.JFrame {
     private Ingreso_Jugador ij;
     private Lista_Circular jugador;
     private boolean isReadFile;
-    private Juego game;
+    private Juego juego;
+    //private Juego game;
     /**
      * Creates new form principal
      */
@@ -28,7 +29,8 @@ public class Principal extends javax.swing.JFrame {
         archi = new Archivo();
         ij = new Ingreso_Jugador();
         jugador = new Lista_Circular();
-        game = new Juego();
+        juego = new Juego();
+        //game = new Juego();
         initComponents();
         this.setTitle("Scrabble");
     }
@@ -129,7 +131,7 @@ public class Principal extends javax.swing.JFrame {
             ij.setVisible(true);
             this.setVisible(false);
             ij.setP(this);
-            ij.setJugador(jugador);
+            ij.setJugador(getJugador());
         }else{
             JOptionPane.showMessageDialog(this, "Realice la lectura de un archivo\n antes de iniciar el juego", "Informacion", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -137,10 +139,19 @@ public class Principal extends javax.swing.JFrame {
 
     private void inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioActionPerformed
         // TODO add your handling code here:
+        Juego game = new Juego();
         game.setVisible(true);
         game.setP(this);
-        game.setJugador(jugador);
+        if(ij.getJugador() != null){
+            game.setJugador(this.ij.getJugador());
+        }else{
+            game.setJugador(jugador);
+        }
         game.inicializarFichas();
+        game.setDic(archi.getDiccionario());
+        game.hiloDiccionario();
+        game.hiloJugador();
+        
         this.setVisible(false);
         
     }//GEN-LAST:event_inicioActionPerformed
@@ -186,4 +197,18 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton juga_r;
     private javax.swing.JButton leer;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * @return the jugador
+     */
+    public Lista_Circular getJugador() {
+        return jugador;
+    }
+
+    /**
+     * @param jugador the jugador to set
+     */
+    public void setJugador(Lista_Circular jugador) {
+        this.jugador = jugador;
+    }
 }
