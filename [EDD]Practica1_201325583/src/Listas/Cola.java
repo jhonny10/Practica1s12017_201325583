@@ -88,12 +88,14 @@ public class Cola {
         }
     }
     
-    public void desencolar(){
+    public Nodo desencolar(){
+        Nodo temp = first;
         if(first != null){
             first = first.getSiguiente();
             first.setAnterior(null);
             size --;
         }
+        return temp;
     }
     
     public Object get(int index){

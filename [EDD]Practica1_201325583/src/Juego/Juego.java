@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Juego;
 
 import Listas.Lista_Circular;
 import Listas.Cola;
 import Listas.Lista_Simple;
+import Nodo_Listas.Nodo;
 import Reporte.Reporte;
 import java.util.Random;
 import javax.swing.ImageIcon;
@@ -21,6 +17,8 @@ import javax.swing.JPanel;
  */
 public class Juego extends javax.swing.JFrame {
 
+    private Nodo turno;
+    private Nodo anterior;
     /**
      * Creates new form Juego
      */
@@ -57,6 +55,53 @@ public class Juego extends javax.swing.JFrame {
         rep = new Reporte();
         rep_jugador = new Reporte();
         rep_fichas = new Reporte();
+        //inicializarTurno();
+    }
+    
+    public void inicializarTurno(){
+        Random aleatorio = new Random();
+        int buscar = aleatorio.nextInt(jugador.getSize());
+        
+        Nodo temp = jugador.gets(buscar);
+        turno = temp;
+        lblUsuario.setText(temp.getDato().toString());
+        inicializarBaraja();
+        temp.setTurno(true);
+    }
+    
+    public void colocar_Cartas(){
+        
+    }
+    
+    public void inicializarBaraja(){
+        Nodo temp = jugador.getRaiz();
+        if(temp != null){
+            for(int i = 0; i < Lista_Simple.SIZE_MAX; i++){
+                Nodo aux2 = ficha_aleatorio.desencolar();
+                if(aux2 != null){
+                    aux2.setSiguiente(null);
+                    temp.getBaraja().add(aux2);
+                }
+            }
+            
+            Nodo aux = temp.getSiguiente();
+            while(aux != null && !aux.equals(temp)){
+                for(int j = 0; j < Lista_Simple.SIZE_MAX; j++){
+                        Nodo aux2 = ficha_aleatorio.desencolar();
+                        if(aux2 != null){
+                            aux2.setSiguiente(null);
+                            aux.getBaraja().add(aux2);
+                        }
+                }
+                aux = aux.getSiguiente();
+            }
+        }
+//        for(int i = 0; i < Lista_Simple.SIZE_MAX; i++){
+//            Nodo temp = ficha_aleatorio.desencolar();
+//            j.getBaraja().add(temp);
+//        }
+//        Ficha f = (Ficha)j.getBaraja().get(0);
+//        jButton1.setText(f.getFicha());
     }
     
     public void colocarAreaReportes(){

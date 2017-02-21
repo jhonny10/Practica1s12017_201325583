@@ -50,6 +50,81 @@ public class Lista_Simple {
         //this.printList();
     }
     
+    public void add(Nodo dato){
+        Nodo temp = dato;
+        if(getActual() == null){
+            raiz = actual = temp;
+            setSize(getSize() + 1);
+        }else{
+            if(getActual().getSiguiente() == null){
+                getActual().setSiguiente(temp);
+                actual = getActual().getSiguiente();
+                setSize(getSize() + 1);
+            }
+        }
+        //this.printList();
+    }
+    
+    public void addBaraja(Object dato){
+        Nodo temp = new Nodo(null, dato);
+        if(getActual() == null){
+            raiz = actual = temp;
+            setSize(getSize() + 1);
+        }else{
+            if(size <= SIZE_MAX){
+                if(getActual().getSiguiente() == null){
+                    getActual().setSiguiente(temp);
+                    actual = getActual().getSiguiente();
+                    setSize(getSize() + 1);
+                }
+            }
+        }
+    }
+    
+    public boolean removeBaraja(Object obj){
+        Nodo temp = raiz; //nodo a eliminar
+        while(temp != null){
+            if(temp.equals(obj)){
+                break;
+            }
+            temp = temp.getSiguiente();
+        }
+        
+        Nodo aux = raiz;
+        if(temp != null){
+            while(aux.getSiguiente() != null){
+                if(aux.getSiguiente().equals(temp)){
+                    break;
+                }
+                aux = aux.getSiguiente();
+            }
+            aux.setSiguiente(temp);
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean removeBaraja(int index){
+        int cont = 0;
+        Nodo temp = raiz;
+        while(cont < index && temp != null){
+            temp = temp.getSiguiente();
+            cont++;
+        }
+        Nodo aux = raiz;
+        if(temp != null){
+            while(aux.getSiguiente() != null){
+                if(aux.getSiguiente().equals(temp)){
+                    break;
+                }
+                aux = aux.getSiguiente();
+            }
+            aux.setSiguiente(temp);
+            return true;
+        }
+        return false;
+    }
+    
     public Object get(int index){
         int cont = 0;
         Nodo temp = getRaiz();

@@ -15,10 +15,10 @@ public class Lista_Circular {
     private Nodo raiz;
     private Nodo actual;
     private int size;
-    private Lista_Simple baraja;
+    //private Lista_Simple baraja;
     
     public  Lista_Circular(){
-        baraja = new Lista_Simple();
+        //baraja = new Lista_Simple();
         raiz = null;
         actual = null;
         size = 0;
@@ -50,6 +50,22 @@ public class Lista_Circular {
         }
         
         return temp.getDato();
+    }
+    
+    public Nodo gets(int index){
+        int cont = 0;
+        Nodo temp = getRaiz();
+        
+        while(cont < index && index <= size){
+            temp = temp.getSiguiente();
+            cont ++;
+        }
+        
+        if(index > size){
+            return null;
+        }
+        
+        return temp;
     }
     
     public void clear(){
@@ -97,19 +113,5 @@ public class Lista_Circular {
      */
     public int getSize() {
         return size;
-    }
-
-    /**
-     * @return the baraja
-     */
-    public Lista_Simple getBaraja() {
-        return baraja;
-    }
-
-    /**
-     * @param baraja the baraja to set
-     */
-    public void setBaraja(Lista_Simple baraja) {
-        this.baraja = baraja;
     }
 }

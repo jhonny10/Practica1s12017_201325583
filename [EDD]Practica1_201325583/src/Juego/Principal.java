@@ -20,7 +20,7 @@ public class Principal extends javax.swing.JFrame {
     private Ingreso_Jugador ij;
     private Lista_Circular jugador;
     private boolean isReadFile;
-    private Juego juego;
+    //private Juego juego;
     //private Juego game;
     /**
      * Creates new form principal
@@ -29,7 +29,7 @@ public class Principal extends javax.swing.JFrame {
         archi = new Archivo();
         ij = new Ingreso_Jugador();
         jugador = new Lista_Circular();
-        juego = new Juego();
+        //juego = new Juego();
         //game = new Juego();
         initComponents();
         this.setTitle("Scrabble");
@@ -151,6 +151,7 @@ public class Principal extends javax.swing.JFrame {
         game.setDic(archi.getDiccionario());
         game.hiloDiccionario();
         game.hiloJugador();
+        game.inicializarTurno();
         
         this.setVisible(false);
         
