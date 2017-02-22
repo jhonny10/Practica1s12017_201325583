@@ -55,26 +55,79 @@ public class Juego extends javax.swing.JFrame {
         rep = new Reporte();
         rep_jugador = new Reporte();
         rep_fichas = new Reporte();
+        rep_fichas_activas = new Reporte();
         //inicializarTurno();
     }
     
     public void inicializarTurno(){
-        Random aleatorio = new Random();
+        try{
+            Random aleatorio = new Random();
         int buscar = aleatorio.nextInt(jugador.getSize());
         
         Nodo temp = jugador.gets(buscar);
         turno = temp;
         lblUsuario.setText(temp.getDato().toString());
         inicializarBaraja();
+        colocar_Cartas();
         temp.setTurno(true);
+        }catch(Exception ex){
+            
+        }
+    }
+    
+    public void cambiarTurno(){
+        try{
+            anterior = turno;
+        anterior.setTurno(false);
+        turno = turno.getSiguiente();
+        
+        lblUsuario.setText(turno.getDato().toString());
+        //inicializarBaraja();
+        colocar_Cartas();
+        JOptionPane.showMessageDialog(null, turno.getDato().toString(), "Cambio turno", JOptionPane.INFORMATION_MESSAGE);
+        turno.setTurno(true);
+        }catch(Exception ex){
+            
+        }
     }
     
     public void colocar_Cartas(){
+        try{
+            Ficha f = (Ficha) this.turno.getBaraja().get(0);
+        jButton1.setText(f.getFicha());
+        ch1.setText(f.getFicha());
         
+        f = (Ficha) this.turno.getBaraja().get(1);
+        jButton2.setText(f.getFicha());
+        ch2.setText(f.getFicha());
+        
+        f = (Ficha) this.turno.getBaraja().get(2);
+        jButton3.setText(f.getFicha());
+        ch3.setText(f.getFicha());
+        
+        f = (Ficha) this.turno.getBaraja().get(3);
+        jButton4.setText(f.getFicha());
+        ch4.setText(f.getFicha());
+        
+        f = (Ficha) this.turno.getBaraja().get(4);
+        jButton5.setText(f.getFicha());
+        ch5.setText(f.getFicha());
+        
+        f = (Ficha) this.turno.getBaraja().get(5);
+        jButton6.setText(f.getFicha());
+        ch6.setText(f.getFicha());
+        
+        f = (Ficha) this.turno.getBaraja().get(6);
+        jButton7.setText(f.getFicha());
+        ch7.setText(f.getFicha());
+        }catch(Exception ex){
+            
+        }
     }
     
     public void inicializarBaraja(){
-        Nodo temp = jugador.getRaiz();
+        try{
+            Nodo temp = jugador.getRaiz();
         if(temp != null){
             for(int i = 0; i < Lista_Simple.SIZE_MAX; i++){
                 Nodo aux2 = ficha_aleatorio.desencolar();
@@ -95,6 +148,9 @@ public class Juego extends javax.swing.JFrame {
                 }
                 aux = aux.getSiguiente();
             }
+        }
+        }catch(Exception ex){
+            
         }
 //        for(int i = 0; i < Lista_Simple.SIZE_MAX; i++){
 //            Nodo temp = ficha_aleatorio.desencolar();
@@ -437,6 +493,7 @@ public class Juego extends javax.swing.JFrame {
                     try {
                         actualizarJugador();
                         actualizarFichas();
+                        actualizarFichasActicas();
                         Thread.sleep(2000);
                     } catch (InterruptedException ex) {
                         
@@ -466,7 +523,7 @@ public class Juego extends javax.swing.JFrame {
         ch7 = new javax.swing.JCheckBox();
         ch4 = new javax.swing.JCheckBox();
         lblcambiar = new javax.swing.JLabel();
-        cb1 = new javax.swing.JCheckBox();
+        ch1 = new javax.swing.JCheckBox();
         ch5 = new javax.swing.JCheckBox();
         cambio = new javax.swing.JButton();
         lblarea = new javax.swing.JLabel();
@@ -550,12 +607,22 @@ public class Juego extends javax.swing.JFrame {
         lblcambiar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblcambiar.setText("Cambiar Letras:");
 
-        cb1.setFont(new java.awt.Font("Comic Sans MS", 0, 11)); // NOI18N
+        ch1.setFont(new java.awt.Font("Comic Sans MS", 0, 11)); // NOI18N
+        ch1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ch1ActionPerformed(evt);
+            }
+        });
 
         ch5.setFont(new java.awt.Font("Comic Sans MS", 0, 11)); // NOI18N
 
         cambio.setFont(new java.awt.Font("Comic Sans MS", 0, 11)); // NOI18N
-        cambio.setText("Agregar");
+        cambio.setText("Cambiar");
+        cambio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cambioActionPerformed(evt);
+            }
+        });
 
         lblarea.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
         lblarea.setText("AREA DE REPORTES");
@@ -663,26 +730,27 @@ public class Juego extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addGap(22, 22, 22)
                                     .addComponent(agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(cambio, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(38, 38, 38)
-                                        .addComponent(ch2))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addContainerGap()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(ch3, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(ch4, javax.swing.GroupLayout.Alignment.TRAILING))))
-                                .addGap(53, 53, 53)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(ch7)
-                                    .addComponent(ch6)
-                                    .addComponent(ch5)))))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(38, 38, 38)
+                                    .addComponent(ch2))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                    .addContainerGap()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(ch3, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(ch4, javax.swing.GroupLayout.Alignment.TRAILING))))
+                            .addGap(53, 53, 53)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(ch7)
+                                .addComponent(ch6)
+                                .addComponent(ch5)))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(38, 38, 38)
+                            .addComponent(cambio, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(38, 38, 38)
-                        .addComponent(cb1)))
+                        .addComponent(ch1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -715,7 +783,7 @@ public class Juego extends javax.swing.JFrame {
                         .addComponent(lblcambiar)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(cb1)
+                            .addComponent(ch1)
                             .addComponent(ch5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -761,9 +829,19 @@ public class Juego extends javax.swing.JFrame {
 
         jButton8.setFont(new java.awt.Font("Comic Sans MS", 0, 11)); // NOI18N
         jButton8.setText("Cancelar Tiro");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         jButton9.setFont(new java.awt.Font("Comic Sans MS", 0, 11)); // NOI18N
         jButton9.setText("Validar Tiro");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         jLabel1.setText("Letras Activas");
@@ -869,68 +947,171 @@ public class Juego extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_agregarActionPerformed
 
-    public void actualizarDiccionario(){
-        rep.actualizar_Diccionario(dic);
-        pathTxt = rep.generarTxt("txtDiccionario");
-        pathImg = rep.generarImagen(pathTxt, "imgDic");
-                        //colocar imagen paneldic
-        JPanel jp = (JPanel)areaReportes.getComponent(0);
-        JLabel jl = (JLabel)jp.getComponent(0);
-        int width_d = jl.getWidth();
-        int heigth_d = jl.getHeight();
-        try{
-            jl.setIcon(new ImageIcon(rep.icono(pathImg, width_d, heigth_d)));
-        }catch(Exception ex){
-            System.out.println(ex.getMessage());        
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+        
+        //validar
+        cambiarTurno();
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void cambioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambioActionPerformed
+        // TODO add your handling code here:
+        //para cambiar fichas
+        if(ch1.isSelected()){
+            Ficha f = (Ficha) turno.getBaraja().removeBaraja(turno.getBaraja().get(ch1.getText()));
+            this.ficha_aleatorio.encolar(f);
+            turno.getBaraja().add(this.ficha_aleatorio.desencolar().getDato());
+            ch1.setSelected(false);
         }
-        rep.reiniciarNodo();
+        if(ch2.isSelected()){
+            Ficha f = (Ficha) turno.getBaraja().removeBaraja(turno.getBaraja().get(ch2.getText()));
+            this.ficha_aleatorio.encolar(f);
+            turno.getBaraja().add(this.ficha_aleatorio.desencolar().getDato());
+            ch2.setSelected(false);
+        }
+        if(ch3.isSelected()){
+            Ficha f = (Ficha) turno.getBaraja().removeBaraja(turno.getBaraja().get(ch3.getText()));
+            this.ficha_aleatorio.encolar(f);
+            turno.getBaraja().add(this.ficha_aleatorio.desencolar().getDato());
+            ch3.setSelected(false);
+        }
+        if(ch4.isSelected()){
+            Ficha f = (Ficha) turno.getBaraja().removeBaraja(turno.getBaraja().get(ch4.getText()));
+            this.ficha_aleatorio.encolar(f);
+            turno.getBaraja().add(this.ficha_aleatorio.desencolar().getDato());
+            ch4.setSelected(false);
+        }
+        if(ch5.isSelected()){
+            Ficha f = (Ficha) turno.getBaraja().removeBaraja(turno.getBaraja().get(ch5.getText()));
+            this.ficha_aleatorio.encolar(f);
+            turno.getBaraja().add(this.ficha_aleatorio.desencolar().getDato());
+            ch5.setSelected(false);
+        }
+        if(ch6.isSelected()){
+            Ficha f = (Ficha) turno.getBaraja().removeBaraja(turno.getBaraja().get(ch6.getText()));
+            this.ficha_aleatorio.encolar(f);
+            turno.getBaraja().add(this.ficha_aleatorio.desencolar().getDato());
+            ch6.setSelected(false);
+        }
+        if(ch7.isSelected()){
+            Ficha f = (Ficha) turno.getBaraja().removeBaraja(turno.getBaraja().get(ch7.getText()));
+            this.ficha_aleatorio.encolar(f);
+            turno.getBaraja().add(this.ficha_aleatorio.desencolar().getDato());
+            ch7.setSelected(false);
+        }
+        this.colocar_Cartas();
+        this.cambiarTurno();
+    }//GEN-LAST:event_cambioActionPerformed
+
+    private void ch1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ch1ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_ch1ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    public void actualizarDiccionario(){
+        try{
+            rep.actualizar_Diccionario(dic);
+            pathTxt = rep.generarTxt("txtDiccionario");
+            pathImg = rep.generarImagen(pathTxt, "imgDic");
+                            //colocar imagen paneldic
+            JPanel jp = (JPanel)areaReportes.getComponent(0);
+            JLabel jl = (JLabel)jp.getComponent(0);
+            int width_d = jl.getWidth();
+            int heigth_d = jl.getHeight();
+            try{
+                jl.setIcon(new ImageIcon(rep.icono(pathImg, width_d, heigth_d)));
+            }catch(Exception ex){
+                System.out.println(ex.getMessage());        
+            }
+            rep.reiniciarNodo();
+        }catch(Exception ex){
+            
+        }
         //eliminar archivo e imagen
         //rep.eliminar_image_txt(pathTxt, pathImagen);
     }
     
     public void actualizarJugador(){
-        rep_jugador.actualizar_Jugador(jugador);
-        pathTxtJ = rep_jugador.generarTxt("txtJugador");
-        pathImgJ = rep_jugador.generarImagen(pathTxtJ, "imgJug");
-                        //colocar imagen paneldic
-        int i = areaReportes.indexOfTab("Lista Jugadores");
-        JPanel jp = (JPanel)areaReportes.getComponentAt(i);
-        //JPanel jp = (JPanel)areaReportes.getComponent(5);
-        JLabel jl = (JLabel)jp.getComponent(0);
-        int width_d = jl.getWidth();
-        int heigth_d = jl.getHeight();
         try{
-            jl.setIcon(new ImageIcon(rep_jugador.icono(pathImgJ, width_d, heigth_d)));
+            rep_jugador.actualizar_Jugador(jugador);
+            pathTxtJ = rep_jugador.generarTxt("txtJugador");
+            pathImgJ = rep_jugador.generarImagen(pathTxtJ, "imgJug");
+                            //colocar imagen paneldic
+            int i = areaReportes.indexOfTab("Lista Jugadores");
+            JPanel jp = (JPanel)areaReportes.getComponentAt(i);
+            //JPanel jp = (JPanel)areaReportes.getComponent(5);
+            JLabel jl = (JLabel)jp.getComponent(0);
+            int width_d = jl.getWidth();
+            int heigth_d = jl.getHeight();
+            try{
+                jl.setIcon(new ImageIcon(rep_jugador.icono(pathImgJ, width_d, heigth_d)));
+            }catch(Exception ex){
+                System.out.println(ex.getMessage());
+            }
+            rep_jugador.reiniciarNodo();
         }catch(Exception ex){
-            System.out.println(ex.getMessage());
+            
         }
-        rep_jugador.reiniciarNodo();
     }
     
     public void actualizarFichas(){
-        rep_fichas.actualizar_Fichas(ficha_aleatorio);
-        pathTxtF = rep_fichas.generarTxt("txtColaFichas");
-        pathImgF = rep_fichas.generarImagen(pathTxtF, "imgCF");
-                        //colocar imagen paneldic
-        int i = areaReportes.indexOfTab("Cola de Fichas");
-        JPanel jp = (JPanel)areaReportes.getComponentAt(i);
-        //JPanel jp = (JPanel)areaReportes.getComponent(5);
-        JLabel jl = (JLabel)jp.getComponent(0);
-        int width_d = jl.getWidth();
-        int heigth_d = jl.getHeight();
         try{
-            jl.setIcon(new ImageIcon(rep_fichas.icono(pathImgF, width_d, heigth_d)));
+            rep_fichas.actualizar_Fichas(ficha_aleatorio);
+            pathTxtF = rep_fichas.generarTxt("txtColaFichas");
+            pathImgF = rep_fichas.generarImagen(pathTxtF, "imgCF");
+                            //colocar imagen paneldic
+            int i = areaReportes.indexOfTab("Cola de Fichas");
+            JPanel jp = (JPanel)areaReportes.getComponentAt(i);
+            //JPanel jp = (JPanel)areaReportes.getComponent(5);
+            JLabel jl = (JLabel)jp.getComponent(0);
+            int width_d = jl.getWidth();
+            int heigth_d = jl.getHeight();
+            try{
+                jl.setIcon(new ImageIcon(rep_fichas.icono(pathImgF, width_d, heigth_d)));
+            }catch(Exception ex){
+                System.out.println(ex.getMessage());
+            }
+            rep_fichas.reiniciarNodo();
+            rep_fichas.setAux_diferencia(0);
         }catch(Exception ex){
-            System.out.println(ex.getMessage());
+            
         }
-        rep_fichas.reiniciarNodo();
-        rep_fichas.setAux_diferencia(0);
+    }
+    
+    public void actualizarFichasActicas(){
+        try{
+            if(turno != null){
+                rep_fichas_activas.actualizar_Fichas_activas(turno.getBaraja());
+                pathTxtFA = rep_fichas_activas.generarTxt("txtActivas");
+                pathImgFA = rep_fichas_activas.generarImagen(pathTxtFA, "imgActivas");
+                                //colocar imagen paneldic
+                int i = areaReportes.indexOfTab("Lista Fichas Activas");
+                JPanel jp = (JPanel)areaReportes.getComponentAt(i);
+                JLabel jl = (JLabel)jp.getComponent(0);
+                int width_d = jl.getWidth();
+                int heigth_d = jl.getHeight();
+                try{
+                    jl.setIcon(new ImageIcon(rep_fichas_activas.icono(pathImgFA, width_d, heigth_d)));
+                }catch(Exception ex){
+                    System.out.println(ex.getMessage());        
+                }
+                rep_fichas_activas.reiniciarNodo();
+            }
+        }catch(Exception ex){
+            
+        }
+        //eliminar archivo e imagen
+        //rep.eliminar_image_txt(pathTxt, pathImagen);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agregar;
     private javax.swing.JTabbedPane areaReportes;
     private javax.swing.JButton cambio;
-    private javax.swing.JCheckBox cb1;
+    private javax.swing.JCheckBox ch1;
     private javax.swing.JCheckBox ch2;
     private javax.swing.JCheckBox ch3;
     private javax.swing.JCheckBox ch4;
@@ -979,8 +1160,16 @@ public class Juego extends javax.swing.JFrame {
     private String pathTxtF;
     private String pathImgF;
     
+    private String pathTxtFA;
+    private String pathImgFA;
+    
     private Lista_Circular jugador;
     private Lista_Simple dic;    
+    
+    private Lista_Simple cDobles;
+    private Lista_Simple cTriples;
+    private String dm;
+    
     private Cola fichas;
     private Cola ficha_aleatorio;
     
@@ -990,6 +1179,7 @@ public class Juego extends javax.swing.JFrame {
     private Reporte rep;//reporte diccionario
     private Reporte rep_jugador;
     private Reporte rep_fichas;
+    private Reporte rep_fichas_activas;
     private boolean isJuegoActive;
     
     private JPanel panel_dic;
@@ -1045,5 +1235,47 @@ public class Juego extends javax.swing.JFrame {
      */
     public void setIsJuegoActive(boolean isJuegoActive) {
         this.isJuegoActive = isJuegoActive;
+    }
+
+    /**
+     * @return the cDobles
+     */
+    public Lista_Simple getcDobles() {
+        return cDobles;
+    }
+
+    /**
+     * @param cDobles the cDobles to set
+     */
+    public void setcDobles(Lista_Simple cDobles) {
+        this.cDobles = cDobles;
+    }
+
+    /**
+     * @return the cTriples
+     */
+    public Lista_Simple getcTriples() {
+        return cTriples;
+    }
+
+    /**
+     * @param cTriples the cTriples to set
+     */
+    public void setcTriples(Lista_Simple cTriples) {
+        this.cTriples = cTriples;
+    }
+
+    /**
+     * @return the dm
+     */
+    public String getDm() {
+        return dm;
+    }
+
+    /**
+     * @param dm the dm to set
+     */
+    public void setDm(String dm) {
+        this.dm = dm;
     }
 }

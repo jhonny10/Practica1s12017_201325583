@@ -153,6 +153,10 @@ public class Principal extends javax.swing.JFrame {
         game.hiloJugador();
         game.inicializarTurno();
         
+        game.setcDobles(archi.getListaCasillaDobles());
+        game.setcTriples(archi.getListaCasillasTriples());
+        game.setDm(archi.getDimension());
+        
         this.setVisible(false);
         
     }//GEN-LAST:event_inicioActionPerformed

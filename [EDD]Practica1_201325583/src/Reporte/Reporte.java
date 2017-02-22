@@ -33,6 +33,10 @@ public class Reporte {
         }
     }
     
+    public void actualizar_Fichas_activas(Lista_Simple ls){
+        recorre_A(ls.getRaiz());
+    }
+    
     public void actualizar_Fichas(Cola fichas){
         recorre_Fichas(fichas.getFirst());
     }
@@ -70,9 +74,9 @@ public class Reporte {
             if(raiz.getSiguiente() != null){
                 Ficha rz = (Ficha) raiz.getDato();
                 Ficha rzsig = (Ficha) raiz.getSiguiente().getDato();
-                nodos = nodos + rz.getFicha() + "_" + aux_diferencia + "->";
-                aux_diferencia ++;
-                nodos = nodos + rzsig.getFicha() + "_" + aux_diferencia + ";\n";
+                nodos = nodos + rz.getFicha() +  "->";
+                //aux_diferencia ++;
+                nodos = nodos + rzsig.getFicha() + ";\n";
             }
             recorre_Fichas(raiz.getSiguiente());
         }
@@ -84,6 +88,18 @@ public class Reporte {
                 nodos = nodos + raiz.getDato().toString() + "->" + raiz.getSiguiente().getDato().toString() + ";\n";
             }
             recorre_Dic(raiz.getSiguiente());
+        }
+    }
+    
+    public void recorre_A(Nodo raiz){
+        if(raiz != null){
+            if(raiz.getSiguiente() != null){
+                Ficha f1 = (Ficha) raiz.getDato();
+                Ficha f2 = (Ficha) raiz.getSiguiente().getDato();
+                
+                nodos = nodos + f1.getFicha() + "->" + f2.getFicha() + ";\n";
+            }
+            recorre_A(raiz.getSiguiente());
         }
     }
     

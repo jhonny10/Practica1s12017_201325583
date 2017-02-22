@@ -5,6 +5,7 @@
  */
 package Listas;
 
+import Juego.Ficha;
 import Nodo_Listas.Nodo;
 
 /**
@@ -37,6 +38,7 @@ public class Lista_Simple {
     
     public void add(Object dato){
         Nodo temp = new Nodo(null, dato);
+        buscarActual();
         if(getActual() == null){
             raiz = actual = temp;
             setSize(getSize() + 1);
@@ -48,6 +50,18 @@ public class Lista_Simple {
             }
         }
         //this.printList();
+    }
+    
+    public void buscarActual(){
+        Nodo temp = raiz;
+        if(temp == null){
+            actual = null;
+        }else{
+            while(temp.getSiguiente() != null){
+                temp = temp.getSiguiente();
+            }
+            actual = temp;
+        }
     }
     
     public void add(Nodo dato){
@@ -81,10 +95,10 @@ public class Lista_Simple {
         }
     }
     
-    public boolean removeBaraja(Object obj){
+    public Object removeBaraja(Object obj){
         Nodo temp = raiz; //nodo a eliminar
         while(temp != null){
-            if(temp.equals(obj)){
+            if(temp.getDato().equals(obj)){
                 break;
             }
             temp = temp.getSiguiente();
@@ -92,37 +106,54 @@ public class Lista_Simple {
         
         Nodo aux = raiz;
         if(temp != null){
-            while(aux.getSiguiente() != null){
-                if(aux.getSiguiente().equals(temp)){
-                    break;
+            if(temp.getDato().equals(raiz.getDato())){
+                Nodo aux2 = raiz;
+                raiz = null;
+                raiz = aux2.getSiguiente();
+                size --;
+                return temp.getDato();
+            }else{
+                while(aux.getSiguiente() != null){
+                    if(aux.getSiguiente().equals(temp)){
+                        break;
+                    }
+                    aux = aux.getSiguiente();
                 }
-                aux = aux.getSiguiente();
+                aux.setSiguiente(temp.getSiguiente());
+                size --;
+                return temp.getDato();
             }
-            aux.setSiguiente(temp);
-            return true;
         }
-        return false;
+        return null;
     }
     
-    public boolean removeBaraja(int index){
+    public Object removeBaraja(int index){
         int cont = 0;
         Nodo temp = raiz;
         while(cont < index && temp != null){
             temp = temp.getSiguiente();
             cont++;
         }
-        Nodo aux = raiz;
-        if(temp != null){
-            while(aux.getSiguiente() != null){
-                if(aux.getSiguiente().equals(temp)){
-                    break;
+        if(cont == 0){
+            temp = raiz;
+            raiz = raiz.getSiguiente();
+            size --;
+            return temp; 
+        }else{
+            Nodo aux = raiz;
+            if(temp != null){
+                while(aux.getSiguiente() != null){
+                    if(aux.getSiguiente().equals(temp)){
+                        break;
+                    }
+                    aux = aux.getSiguiente();
                 }
-                aux = aux.getSiguiente();
+                aux.setSiguiente(temp.getSiguiente());
+                size --;
+                return temp.getDato();
             }
-            aux.setSiguiente(temp);
-            return true;
         }
-        return false;
+        return null;
     }
     
     public Object get(int index){
@@ -138,6 +169,22 @@ public class Lista_Simple {
         }
         
         return temp.getDato();
+    }
+    
+    public Object get(String letra){
+        Nodo temp = getRaiz();
+        
+        while(temp != null){
+            
+            Ficha f = (Ficha) temp.getDato();
+            
+            if(f.getFicha().equals(letra)){
+                return temp.getDato();
+            }
+            temp = temp.getSiguiente();
+        }
+        
+        return null;
     }
     
     public void clear(){
